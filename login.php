@@ -6,7 +6,7 @@ if (isset($_POST['Submit'])) {
 
 	/* Define username and associated password array */
 
-	$logins = array('admin' => 'admin123', 'vishalagarwal1814@gmail.com' => 'vishal', '1941012029.e.rohankundu@gmail.com' => 'rohan', 'adi.mohan1999@gmail.com' => 'aditya');
+	$logins = array('admin' => 'admin123', 'admin2' => 'prashant', '1941012029.e.rohankundu@gmail.com' => 'rohan', 'adi.mohan1999@gmail.com' => 'aditya');
 
 
 	/* Check and assign submitted Username and Password to new variable */
@@ -309,8 +309,8 @@ if (isset($_POST['Submit'])) {
 					<div class="card-body">
 						<h5 class="card-title text-center">Authentication Required <br><span style="font-size:17px;"></span></h5>
 						<form class="form-signin" action="" method="POST">
-							<div class="form-label-group" hidden>
-								<input type="text" id="inputEmail" class="form-control" name="Username" value="admin" placeholder="Username" required autofocus>
+							<div class="form-label-group">
+								<input type="text" id="inputEmail" class="form-control" name="Username"  placeholder="Username" required autofocus>
 								<label for="inputEmail">Username</label>
 							</div>
 

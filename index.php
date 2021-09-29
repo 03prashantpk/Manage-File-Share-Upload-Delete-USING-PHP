@@ -19,6 +19,14 @@ if (!isset($_SESSION['UserData']['Username'])) {
 <body>
 
     <h1>Manage Your Files</h1>
+    
+    <p><?php  if($_SESSION['UserData']['Username'] == 'prashant'){
+       echo "Superuser Account - " . $_SESSION['UserData']['Username'];
+   }
+   else{
+    echo 'Normal User Account';
+
+   }  ?></p>
     <?php
 
     if (isset($_POST['delete'])) {
@@ -40,6 +48,16 @@ if (!isset($_SESSION['UserData']['Username'])) {
     //count the elements
     $count = count($dirArray);
 
+   //echo $_SESSION['UserData']['Username'] 
+
+   if($_SESSION['UserData']['Username'] == 'prashant'){
+       $deleteopt = "<input class='delete' value='Delete' type='submit' name='delete'>  <i class='fa fa-trash-o'></i>";
+   }
+   else{
+    $deleteopt = '<span class="tooltip">Info <i class="fa fa-info-circle" aria-hidden="true"></i><span class="tooltiptext">Login in As Superuser for more options</span></span>';
+
+   }
+
     //Start the list
     printf("<ul>\n");
 
@@ -54,13 +72,17 @@ if (!isset($_SESSION['UserData']['Username'])) {
             
             <form action='' method='POST' class='delete'>
                 <input type='text' hidden name='filenamedelete' value='gallery/$dirArray[$index]' >
-                <input class='delete' value='Delete' type='submit' name='delete'>  <i class='fa fa-trash-o'></i>
+                " . @$deleteopt . "
             </form>
 
-            
+            <input type='text' hidden value='gallery/$dirArray[$index]' id='myInput'>
             <a href='gallery/$dirArray[$index]' download >\n");
+           
             printf("<span class='download'>Download <i class='fa fa-download'></i></span>");
-            printf("</a><span class='download'>Share <i class='fa fa-share-alt'></i></span></div></div>\n");
+            printf("</a><span class='download' onclick='copyText()'>Share <i class='fa fa-share-alt'></i></span></div></div>\n");
+        }
+        else if($count <=2){
+            echo '<p>Your Directory is Empty</p>';
         }
     }
     printf("</ul>\n");
@@ -105,5 +127,24 @@ if (!isset($_SESSION['UserData']['Username'])) {
         <img src="https://www.computerhope.com/issues/pictures/logout.jpg" style=" width:60px; height:60px; border-radius: 50%;" alt="">
     </a>
 </body>
+<script>
+    function copyText() {
+  /* Get the text field */
+  var copyText = document.getElementById("myInput");
 
+  /* Select the text field */
+  copyText.select();
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("Copied the text: " + copyText.value);
+}
+
+
+function share() {
+  document.getElementById("share").innerHTML = "Link Copied";
+}
+</script>
 </html>
