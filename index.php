@@ -18,7 +18,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
 
 <body>
 
-    <h1>flevAR - Files</h1>
+    <h1>Manage Your Files</h1>
     <?php
 
     if (isset($_POST['delete'])) {
@@ -60,7 +60,7 @@ if (!isset($_SESSION['UserData']['Username'])) {
             
             <a href='gallery/$dirArray[$index]' download >\n");
             printf("<span class='download'>Download <i class='fa fa-download'></i></span>");
-            printf("</a></div></div>\n");
+            printf("</a><span class='download'>Share <i class='fa fa-share-alt'></i></span></div></div>\n");
         }
     }
     printf("</ul>\n");
