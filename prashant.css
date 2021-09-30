@@ -70,6 +70,7 @@ h1 {
 
 .padding {
     padding: 10px;
+    padding-left: 5px;
     display: flex;
     justify-content: center;
 }
@@ -435,4 +436,65 @@ p {
     text-transform: capitalize;
     font-size: 17px;
     color: #a70c0c;
+}
+
+h5 {
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 19px;
+    background-color: #f1e0bf;
+    padding: 30px;
+    border-radius: 12px;
+    border: none;
+    width: 80%;
+    color: #000;
+}
+
+.padding2 {
+    padding: 20px;
+    padding-top: 0px;
+    padding-left: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.top-container {
+    background-color: #000;
+    padding: 30px;
+    text-align: center;
+}
+
+.header {
+    padding: 20px;
+    background: #f1e0bf;
+    color: #000;
+}
+
+.content {
+    padding: 16px;
+}
+
+.sticky {
+    position: fixed;
+    top: -33;
+    width: 70%;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.sticky+.content {
+    padding-top: 102px;
+}
+
+.imgs {
+    padding-top: 36px;
+    padding-right: 12px;
+    padding-bottom: 0px;
+    padding-left: 2px;
+    width: 95px;
+    height: 90px;
+    transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
 }

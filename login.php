@@ -6,8 +6,7 @@ if (isset($_POST['Submit'])) {
 
 	/* Define username and associated password array */
 
-	$logins = array('admin' => 'admin123', 'admin2' => 'prashant', '1941012029.e.rohankundu@gmail.com' => 'rohan', 'adi.mohan1999@gmail.com' => 'aditya');
-
+	$logins = array('user' => 'normal', 'admin' => 'prashant', '1941012029.e.rohankundu@gmail.com' => 'rohan', 'adi.mohan1999@gmail.com' => 'aditya');
 
 	/* Check and assign submitted Username and Password to new variable */
 
@@ -39,7 +38,7 @@ if (isset($_POST['Submit'])) {
 <html>
 <head>
 	<!-- Title -------->
-	<title>FlevAr - Studio: Admin </title>
+	<title>Manage your Files </title>
 	
 	<!-- Js and CSS Links ---->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
