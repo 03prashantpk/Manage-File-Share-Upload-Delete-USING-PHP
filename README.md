@@ -15,7 +15,7 @@
 
 
 ## Purpose
-* You can use it on localhost to share your localhost file to other using ngrok or cloudflared etc.
+* You can use it on localhost to share your localhost file (with others using ngrok or cloudflared etc).
 * You can even use it to show you live hosted file directories (images,css,js or any).
 * You can Upload, Share, Delete file from remote or localhost directory without login into your server again and again.
 
