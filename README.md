@@ -6,6 +6,14 @@
 ### File Manage Page - Page
 ![](https://github.com/03prashantpk/Manage-File-Share-Upload-Delete-USING-PHP/blob/master/assets/image2.JPG)
 
+## New Updates - Includes Top Bar, Total file views, Highlited Color & Icons
+### Top View
+![](https://github.com/03prashantpk/Manage-File-Share-Upload-Delete-USING-PHP/blob/master/assets/Top.png)
+
+### On Scroll View
+![](https://github.com/03prashantpk/Manage-File-Share-Upload-Delete-USING-PHP/blob/master/assets/Bottom.png)
+
+
 ## Purpose
 * You can use it on localhost to share your localhost file to other using ngrok or cloudflared etc.
 * You can even use it to show you live hosted file directories (images,css,js or any).
@@ -17,6 +25,10 @@
 * HTML
 * Font-Awesome
 
+## Clone and Start Working
+```
+https://github.com/03prashantpk/Manage-File-Share-Upload-Delete-USING-PHP.git
+```
 
 <br><br><br>
 <h3>Author: 03prashantpk </h3>
