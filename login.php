@@ -6,7 +6,7 @@ if (isset($_POST['Submit'])) {
 
 	/* Define username and associated password array */
 
-	$logins = array('user' => 'normal', 'admin' => 'prashant', '1941012029.e.rohankundu@gmail.com' => 'rohan', 'adi.mohan1999@gmail.com' => 'aditya');
+	$logins = array('user' => 'normal', 'admin' => 'prashant', 'admin2' => 'amit', 'adi.mohan1999@gmail.com' => 'aditya');
 
 	/* Check and assign submitted Username and Password to new variable */
 

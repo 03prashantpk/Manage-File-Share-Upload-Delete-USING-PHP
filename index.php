@@ -42,6 +42,12 @@ $count_total_videos = $count_video_avi + $count_video_3gp + $count_video_mp4 + $
 @$count_music_wav = count(glob("gallery/*.wav"));
 $count_total_musics = $count_music_mp3 + $count_music_aac + $count_music_wav;
 
+
+
+// Count Total Number of archive
+@$count_archive_zip = count(glob("gallery/*.zip"));
+@$count_archive_rar = count(glob("gallery/*.rar"));
+$count_total_archive = $count_archive_zip + $count_archive_rar;
 // Counting files ends here
 
 
@@ -62,19 +68,19 @@ $count_total_musics = $count_music_mp3 + $count_music_aac + $count_music_wav;
 
 
 
-    
-        <h1>Manage Your Files</h1>
 
-        <p><?php if ($_SESSION['UserData']['Username'] == 'prashant') {
-                echo "Superuser Account - " . $_SESSION['UserData']['Username'];
-            } else {
-                echo 'Normal User Account';
-            }  ?></p>
-        <div class="padding2">
-            <h5 class="header" id="myHeader"><?php echo "Images (" . $count_total_images . ") | Presentation (" . $count_total_ppt . ") | Documents (" . $count_total_docs . ") | Videos (" . $count_total_videos . ") | Pdf (" . $count_total_pdf . ") | Musics (" . $count_total_musics . ")" ?></h5>
-        </div>
+    <h1>Manage Your Files</h1>
 
-        <div class="content">
+    <p><?php if ($_SESSION['UserData']['Username'] == 'prashant') {
+            echo "Superuser Account - " . $_SESSION['UserData']['Username'];
+        } else {
+            echo 'Normal User Account';
+        }  ?></p>
+    <div class="padding2">
+        <h5 class="header" id="myHeader"><?php echo "Images (" . $count_total_images . ") | Presentation (" . $count_total_ppt . ") | Documents (" . $count_total_docs . ") | Videos (" . $count_total_videos . ") | Pdf (" . $count_total_pdf . ") | Musics (" . $count_total_musics . ")" . "| Archives (" . $count_total_archive . ")" ?></h5>
+    </div>
+
+    <div class="content">
         <?php
 
         if (isset($_POST['delete'])) {
@@ -128,13 +134,18 @@ $count_total_musics = $count_music_mp3 + $count_music_aac + $count_music_wav;
                     $min = '<i class="fa fa-file-powerpoint-o"></i>';
                     $main_color = 'style="background-color: #faf394;"';
                     $imgs = ' ';
-                } else if ($ext == 'doc' || $ext == 'txt' || $ext == 'xls') {
+                } else if ($ext == 'doc' || $ext == 'docx' || $ext == 'txt' || $ext == 'xls') {
                     $min = '<i class="fa fa fa-music"></i>';
-                    $main_color = 'style="background-color: #baf8a1;"';
+                    $main_color = 'style="background-color: #ebd5fa;"';
                     $imgs = ' ';
                 } else if ($ext == 'pdf') {
                     $min = '<i class="fa fa-file-pdf-o"></i>';
                     $main_color = 'style="background-color: #a5edfa; }";';
+                    //$imgs = "<img class='imgs' src='https://www.vidalifinishinggroup.com/wp-content/uploads/2019/04/1504326172_tekken7.png'>";
+                    $imgs = ' ';
+                } else if ($ext == 'rar' || $ext == 'zip') {
+                    $min = '<i class="fa fa-file-archive-o"></i>';
+                    $main_color = 'style="background-color: #aaf7d9; }";';
                     //$imgs = "<img class='imgs' src='https://www.vidalifinishinggroup.com/wp-content/uploads/2019/04/1504326172_tekken7.png'>";
                     $imgs = ' ';
                 }
@@ -202,6 +213,7 @@ $count_total_musics = $count_music_mp3 + $count_music_aac + $count_music_wav;
         </a>
     </div>
 </body>
+<p style="color: #2c2c2c34;">Developed By Prashant Kumar</p>
 <script>
     function copyText() {
         /* Get the text field */
