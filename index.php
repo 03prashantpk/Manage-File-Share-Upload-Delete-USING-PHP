@@ -3,57 +3,9 @@ if (!isset($_SESSION['UserData']['Username'])) {
     header("location:login.php");
     exit;
 }
-
+// Includes
 include("fatch_current_url.php");
-
-// Counting Files Starts here
-// Count total Number of images including (jpg, jpeg, png, gif)
-@$count_image_jpg = count(glob("gallery/*.jpg"));
-@$count_image_jpeg = count(glob("gallery/*.jpeg"));
-@$count_image_png = count(glob("gallery/*.png"));
-@$count_image_gif = count(glob("gallery/*.gif"));
-$count_total_images = $count_image_gif + $count_image_png + $count_image_jpeg + $count_image_jpg;
-
-// Count Total Number of pdf
-$count_total_pdf = count(glob("gallery/*.pdf"));
-
-// Count Total Number of ppt
-@$count_ppt = count(glob("gallery/*.ppt"));
-@$count_pptx = count(glob("gallery/*.pptx"));
-$count_total_ppt = $count_ppt + $count_pptx;
-
-// Count Total Number of documents
-@$count_doc = count(glob("gallery/*.doc"));
-@$count_docx = count(glob("gallery/*.docx"));
-@$count_txt = count(glob("gallery/*.txt"));
-@$count_xls = count(glob("gallery/*.xls"));
-$count_total_docs = $count_doc + $count_docx + $count_txt + $count_xls;
-
-// Count Total Number of videos
-@$count_video_mp4 = count(glob("gallery/*.mp4"));
-@$count_video_3gp = count(glob("gallery/*.3gp"));
-@$count_video_avi = count(glob("gallery/*.avi"));
-@$count_video_mkv = count(glob("gallery/*.mkv"));
-$count_total_videos = $count_video_avi + $count_video_3gp + $count_video_mp4 + $count_video_mkv;
-
-
-// Count Total Number of audio
-@$count_music_mp3 = count(glob("gallery/*.mp3"));
-@$count_music_aac = count(glob("gallery/*.aac"));
-@$count_music_ogg = count(glob("gallery/*.ogg"));
-@$count_music_wav = count(glob("gallery/*.wav"));
-$count_total_musics = $count_music_mp3 + $count_music_aac + $count_music_wav;
-
-
-
-// Count Total Number of archive
-@$count_archive_zip = count(glob("gallery/*.zip"));
-@$count_archive_rar = count(glob("gallery/*.rar"));
-$count_total_archive = $count_archive_zip + $count_archive_rar;
-// Counting files ends here
-
-// Download Counter
-
+include("files_counter.php");
 ?>
 
 <html>
@@ -63,10 +15,8 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
 </head>
 <link href="prashant.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <script src="https://use.fontawesome.com/beeac301e9.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <body>
 
 
@@ -123,7 +73,8 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
                     $imgs = ' ';
                 } else if ($ext == 'mp3' || $ext == 'ogg' || $ext == 'aac' || $ext == 'm4a' || $ext == 'wav') {
                     $min = '<i class="fa fa-music"></i>';
-                    $main_color = 'style="background-color: #f1d1d9;"';
+                    $main_color = 'style="background: linear-gradient(-65deg, rgba(246, 0, 0, .6), rgba(255, 255, 255, 1.0)) fixed, url(assets/musicbg.webp) fixed bottom; 
+                    background-size: cover;"';
                     $imgs = ' ';
                 } else if ($ext == 'pptx' || $ext == 'ppt') {
                     $min = '<i class="fa fa-file-powerpoint-o"></i>';
@@ -135,13 +86,20 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
                     $imgs = ' ';
                 } else if ($ext == 'pdf') {
                     $min = '<i class="fa fa-file-pdf-o"></i>';
-                    $main_color = 'style="background-color: #a5edfa; }";';
+                    $main_color = 'style="background: linear-gradient(-65deg, rgba(246, 0, 0, .6), rgba(255, 255, 255, 1.0)) fixed, url(https://img.wallpapersafari.com/desktop/800/450/29/58/pLb5BE.jpg) fixed;
+                    background-size: cover;"';
                     //$imgs = "<img class='imgs' src='https://www.vidalifinishinggroup.com/wp-content/uploads/2019/04/1504326172_tekken7.png'>";
                     $imgs = ' ';
                 } else if ($ext == 'rar' || $ext == 'zip') {
                     $min = '<i class="fa fa-file-archive-o"></i>';
                     $main_color = 'style="background-color: #d0f0c0; }";';
                     //$imgs = "<img class='imgs' src='https://www.vidalifinishinggroup.com/wp-content/uploads/2019/04/1504326172_tekken7.png'>";
+                    $imgs = ' ';
+                }
+                else {
+                    $min = '<i class="fa fa fa-file"></i>';
+                    $main_color = 'style="background: linear-gradient(-65deg, rgba(246, 0, 0, .8), rgba(255, 255, 169, 1.0)) fixed, url(http://www.webcreatorbox.com/sample/images/bg-cherrybrossam.jpg) fixed;
+                    background-size: cover;"';
                     $imgs = ' ';
                 }
 
