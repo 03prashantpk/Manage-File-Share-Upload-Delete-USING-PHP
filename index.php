@@ -4,6 +4,8 @@ if (!isset($_SESSION['UserData']['Username'])) {
     exit;
 }
 
+include("fatch_current_url.php");
+
 // Counting Files Starts here
 // Count total Number of images including (jpg, jpeg, png, gif)
 @$count_image_jpg = count(glob("gallery/*.jpg"));
@@ -50,6 +52,7 @@ $count_total_musics = $count_music_mp3 + $count_music_aac + $count_music_wav;
 $count_total_archive = $count_archive_zip + $count_archive_rar;
 // Counting files ends here
 
+// Download Counter
 
 ?>
 
@@ -62,7 +65,7 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="https://use.fontawesome.com/beeac301e9.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <body>
 
@@ -102,14 +105,6 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
         //count the elements
         $count = count($dirArray);
 
-        //echo $_SESSION['UserData']['Username'] 
-
-        if ($_SESSION['UserData']['Username'] == 'prashant') {
-            $deleteopt = "<input class='delete' value='Delete' type='submit' name='delete'>  <i class='fa fa-trash-o'></i>";
-        } else {
-            $deleteopt = '<span class="tooltip">Info <i class="fa fa-info-circle" aria-hidden="true"></i><span class="tooltiptext">Login in As Superuser for more options</span></span>';
-        }
-
         //Start the list
         printf("<ul>\n");
 
@@ -118,9 +113,9 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
 
             if ($dirArray[$index] != '.' && $dirArray[$index] != '..' && $ext != "xml") {
 
-                if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'png' || $ext == 'gif') {
+                if ($ext == 'JPG' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'png' || $ext == 'gif') {
                     $min = "<i class='fa fa-file-image-o'></i>";
-                    $main_color = 'style="background-color: #9ddfc5;"';
+                    $main_color = 'style="background-color: #c9ffe5;"';
                     $imgs = ' ';
                 } else if ($ext == 'mp4' || $ext == 'mkv' || $ext == '3gp') {
                     $min = '<i class="fa fa-file-video-o"></i>';
@@ -128,13 +123,13 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
                     $imgs = ' ';
                 } else if ($ext == 'mp3' || $ext == 'ogg' || $ext == 'aac' || $ext == 'm4a' || $ext == 'wav') {
                     $min = '<i class="fa fa-music"></i>';
-                    $main_color = 'style="background-color: #f1d1d1;"';
+                    $main_color = 'style="background-color: #f1d1d9;"';
                     $imgs = ' ';
                 } else if ($ext == 'pptx' || $ext == 'ppt') {
                     $min = '<i class="fa fa-file-powerpoint-o"></i>';
                     $main_color = 'style="background-color: #faf394;"';
                     $imgs = ' ';
-                } else if ($ext == 'doc' || $ext == 'docx' || $ext == 'txt' || $ext == 'xls') {
+                } else if ($ext == 'doc' || $ext == 'docx' || $ext == 'txt' || $ext == 'xlsx') {
                     $min = '<i class="fa fa fa-music"></i>';
                     $main_color = 'style="background-color: #ebd5fa;"';
                     $imgs = ' ';
@@ -145,32 +140,48 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
                     $imgs = ' ';
                 } else if ($ext == 'rar' || $ext == 'zip') {
                     $min = '<i class="fa fa-file-archive-o"></i>';
-                    $main_color = 'style="background-color: #aaf7d9; }";';
+                    $main_color = 'style="background-color: #d0f0c0; }";';
                     //$imgs = "<img class='imgs' src='https://www.vidalifinishinggroup.com/wp-content/uploads/2019/04/1504326172_tekken7.png'>";
                     $imgs = ' ';
                 }
 
+                if ($_SESSION['UserData']['Username'] == 'prashant') {
+                    $deleteopt = ' <button type="button" class="delete" data-id="gallery/' . $dirArray[$index] . '">Delete <i class="fa fa-trash-o"></i></button>
+                   ';
+                } else {
+                    $deleteopt = '<span class="tooltip">Info <i class="fa fa-info-circle" aria-hidden="true"></i><span class="tooltiptext">Login in As Superuser for more options</span></span>';
+                }
 
+                $dcount = @file_get_contents('assets/count/' . $dirArray[$index] . '.txt');
                 $data_type = "mb";
                 $filedate = date("d F Y, H:i:s", filemtime("gallery/$dirArray[$index]"));
                 $filesize = number_format(filesize("gallery/$dirArray[$index]") / 1000000, 2);
-                printf("<div class='padding'> $imgs <div $main_color class='main'><span class='list'>$min</span> <span class='name'> $dirArray[$index]</span> <br><span class='date'> Created on : $filedate </span>  <span class='size'>Size-  $filesize$data_type</span>
+                printf("<div class='padding'> $imgs <div $main_color class='main'><span class='list'>$min</span> <span class='name'> $dirArray[$index]</span>  <br><span class='date'> Created on : $filedate </span>  <span class='size'>Size-  $filesize$data_type</span>
             
-            <form action='' method='POST' class='delete'>
+            <form action='' method='POST' class='delete2'>
                 <input type='text' hidden name='filenamedelete' value='gallery/$dirArray[$index]' >
                 " . @$deleteopt . "
             </form>
 
             <input type='text' hidden value='gallery/$dirArray[$index]' id='myInput'>
-            <a href='gallery/$dirArray[$index]' download >\n");
+            <a href='gallery/$dirArray[$index]' class='count' download data-id='$dirArray[$index]'\n");
 
-                printf("<span class='download'>Download <i class='fa fa-download'></i></span>");
-                printf("</a><span class='download' onclick='copyText()'>Share <i class='fa fa-share-alt'></i></span></div></div>\n");
-            } else if ($count <= 2) {
-                echo '<p>Your Directory is Empty</p>';
+                printf("<span class='download '>Download <i class='fa fa-download'></i></span></a>");
+                printf(" 
+                <br> 
+                <span class='date count '> Total Downloads: (" . $dcount . ")</span>
+                <span class='download'>
+                    <a href='whatsapp://send?text=Download Classroom Notes from here. $url_link'
+                            data-action='share/whatsapp/share'
+                            target='_blank'>
+                            Share to whatsapp
+                    </a> <i class='fa fa-share-alt'></i></span>
+                    </div></div> \n");
             }
         }
-        printf("</ul>\n");
+        if ($count <= 2) {
+            echo '<p>Your Directory is Empty</p>';
+        }
         ?>
 
         <div class="fab-wrapper">
@@ -187,7 +198,7 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
                 <a onclick="location.href='#'" class="fab-action fab-action-2">
                     <i class="fa fa-upload"></i>
                 </a>
-                <a onclick="location.href='https://flevar.in'" class="fab-action fab-action-3">
+                <a onclick="location.href='https://enally.in'" class="fab-action fab-action-3">
                     <i class="fa fa-globe"></i>
                 </a>
                 <a onclick="location.href='logout.php'" class="fab-action fab-action-4">
@@ -213,7 +224,9 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
         </a>
     </div>
 </body>
-<p style="color: #2c2c2c34;">Developed By Prashant Kumar</p>
+<p style="color: #2c2c2c34;">Developed By Prashant Kumar
+    <br>If you want to work on this project <a href='https://www.linkedin.com/in/03prashantpk/'>Ping me.</a>
+</p>
 <script>
     function copyText() {
         /* Get the text field */
@@ -251,5 +264,93 @@ $count_total_archive = $count_archive_zip + $count_archive_rar;
         }
     }
 </script>
+
+
+<!---- Delete script ----->
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.btn-success').click(function() {
+            var id = $(this).attr("id");
+            if (confirm("Are you sure you want to delete this Member?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "delete.php",
+                    data: ({
+                        id: id
+                    }),
+                    cache: false,
+                    success: function(html) {}
+                });
+            } else {
+                return false;
+            }
+        });
+    });
+</script>
+
+
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "View_ajax.php",
+            type: "POST",
+            cache: false,
+            success: function(dataResult) {
+                $('#table').html(dataResult);
+            }
+        });
+        $(document).on("click", ".delete", function() {
+            var $ele = $(this).parent().parent();
+                $.ajax({
+                    url: "delete_ajax.php",
+                    type: "POST",
+                    cache: false,
+                    data: {
+                        id: $(this).attr("data-id")
+                    },
+                    success: function(dataResult) {
+                        var dataResult = JSON.parse(dataResult);
+                        if (dataResult.statusCode == 200) {
+                            $ele.fadeOut().remove();
+                        }
+                    }
+                });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "View_ajax.php",
+            type: "POST",
+            cache: false,
+            success: function(dataResult) {
+                $('#table').html(dataResult);
+            }
+        });
+        $(document).on("click", ".count", function() {
+            var $ele = $(this).parent().parent();
+            $.ajax({
+                url: "count_ajax.php",
+                type: "POST",
+                cache: false,
+                data: {
+                    id: $(this).attr("data-id")
+                },
+                success: function(dataResult) {
+                    var dataResult = JSON.parse(dataResult);
+                    if (dataResult.statusCode == 200) {
+                        $ele.fadeOut().remove();
+                    }
+                    alert("Deleted");
+                }
+            });
+        });
+    });
+</script>
+
 
 </html>
