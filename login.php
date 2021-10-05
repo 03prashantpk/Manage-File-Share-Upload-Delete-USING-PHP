@@ -40,6 +40,7 @@ if (isset($_POST['Submit'])) {
 <head>
 	<!-- Title -------->
 	<title>Manage your Files </title>
+	<link rel="icon" href="assets/Fevicon.png" type="image/x-icon">
 	
 	<!-- Js and CSS Links ---->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -50,11 +51,11 @@ if (isset($_POST['Submit'])) {
 	<!-- Meta tags ----->
 	<meta charset='UTF-8'>
 	<meta name="author" content="" />
-	<meta name='copyright' content='Flevar.in'>
+	<meta name='copyright' content='enally.in'>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name='keywords' content='VR App, enally, VR, Online Trail room,'>
-	<meta name="description" content="flevAR - Team Access Page (Authentication Required!)" />
+	<meta name="description" content="Enally - (Authentication Required!)" />
 	<style>
 		:root {
 			--input-padding-x: 1.5rem;

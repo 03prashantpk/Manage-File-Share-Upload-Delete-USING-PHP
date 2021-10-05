@@ -6,55 +6,63 @@ if (!isset($_SESSION['UserData']['Username'])) {
 // Includes
 include("fatch_current_url.php");
 include("files_counter.php");
+
+// function removed
+if (isset($_POST['delete'])) {
+    $filename = $_POST['filenamedelete'];
+    unlink($filename);
+    header('Location: ./');
+}
+
+// Total page Visit
+$Page_visit_counter_file = "PV_counter.txt";
+$total_page_visit = @file_get_contents($Page_visit_counter_file,);
+$total_page_visit++;
+@file_put_contents($Page_visit_counter_file, $total_page_visit);
+
+
+
+$sermonDirectory = opendir("gallery");
+// Gets each entry in the directory
+while ($entryName = readdir($sermonDirectory)) {
+    $dirArray[] = $entryName;
+}
+//close the directory
+closedir($sermonDirectory);
+//Sort the Array
+sort($dirArray);
+
+//count the elements
+$count = count($dirArray);
 ?>
 
 <html>
 
 <head>
-    <title>PHP - Server File Manager</title>
+    <title>Enally - Server File Manager</title>
 </head>
 <link href="prashant.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://use.fontawesome.com/beeac301e9.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="icon" href="assets/Fevicon.png" type="image/x-icon">
 <body>
-
-
-
-
     <h1>Manage Your Files</h1>
+    
 
-    <p><?php if ($_SESSION['UserData']['Username'] == 'prashant') {
+    <p><?php if ($_SESSION['UserData']['Username'] == 'prashant' || $_SESSION['UserData']['Username'] == 'amit') {
             echo "Superuser Account - " . $_SESSION['UserData']['Username'];
         } else {
             echo 'Normal User Account';
-        }  ?></p>
+        }  ?>
+    </p>
+
     <div class="padding2">
-        <h5 class="header" id="myHeader"><?php echo "Images (" . $count_total_images . ") | Presentation (" . $count_total_ppt . ") | Documents (" . $count_total_docs . ") | Videos (" . $count_total_videos . ") | Pdf (" . $count_total_pdf . ") | Musics (" . $count_total_musics . ")" . "| Archives (" . $count_total_archive . ")" ?></h5>
+        <h5 class="header" id="myHeader"><?php echo "Images (" . $count_total_images . ") | Presentation (" . $count_total_ppt . ") | Documents (" . $count_total_docs . ") | Videos (" . $count_total_videos . ") | Pdf (" . $count_total_pdf . ") | Musics (" . $count_total_musics . ")" . "| Archives (" . $count_total_archive . ")" ?> <span style="float: right;">Total visit: <?php echo $total_page_visit ?></span></h5>
     </div>
 
     <div class="content">
         <?php
-
-        if (isset($_POST['delete'])) {
-            $filename = $_POST['filenamedelete'];
-            unlink($filename);
-            header('Location: ./');
-        }
-
-        $sermonDirectory = opendir("gallery");
-        // Gets each entry in the directory
-        while ($entryName = readdir($sermonDirectory)) {
-            $dirArray[] = $entryName;
-        }
-        //close the directory
-        closedir($sermonDirectory);
-        //Sort the Array
-        sort($dirArray);
-
-        //count the elements
-        $count = count($dirArray);
-
         //Start the list
         printf("<ul>\n");
 
@@ -73,7 +81,7 @@ include("files_counter.php");
                     $imgs = ' ';
                 } else if ($ext == 'mp3' || $ext == 'ogg' || $ext == 'aac' || $ext == 'm4a' || $ext == 'wav') {
                     $min = '<i class="fa fa-music"></i>';
-                    $main_color = 'style="background: linear-gradient(-65deg, rgba(246, 0, 0, .6), rgba(255, 255, 255, 1.0)) fixed, url(assets/musicbg.webp) fixed bottom; 
+                    $main_color = 'style="background: linear-gradient(-105deg, rgba(0, 0, 0, .5), rgba(255, 255, 155, 1.0)) fixed, url(assets/musicbg.webp) fixed bottom; 
                     background-size: cover;"';
                     $imgs = ' ';
                 } else if ($ext == 'pptx' || $ext == 'ppt') {
@@ -95,8 +103,7 @@ include("files_counter.php");
                     $main_color = 'style="background-color: #d0f0c0; }";';
                     //$imgs = "<img class='imgs' src='https://www.vidalifinishinggroup.com/wp-content/uploads/2019/04/1504326172_tekken7.png'>";
                     $imgs = ' ';
-                }
-                else {
+                } else {
                     $min = '<i class="fa fa fa-file"></i>';
                     $main_color = 'style="background: linear-gradient(-65deg, rgba(246, 0, 0, .8), rgba(255, 255, 169, 1.0)) fixed, url(http://www.webcreatorbox.com/sample/images/bg-cherrybrossam.jpg) fixed;
                     background-size: cover;"';
@@ -121,10 +128,9 @@ include("files_counter.php");
                 " . @$deleteopt . "
             </form>
 
-            <input type='text' hidden value='gallery/$dirArray[$index]' id='myInput'>
-            <a href='gallery/$dirArray[$index]' class='count' download data-id='$dirArray[$index]'\n");
+            <input type='text' hidden value='gallery/$dirArray[$index]' id='myInput'>");
 
-                printf("<span class='download '>Download <i class='fa fa-download'></i></span></a>");
+                printf(" <a href='gallery/$dirArray[$index]' class='count' download data-id='$dirArray[$index]'\n <span class='download '>Download <i class='fa fa-download'></i></span></a>");
                 printf(" 
                 <br> 
                 <span class='date count '> Total Downloads: (" . $dcount . ")</span>
@@ -137,178 +143,9 @@ include("files_counter.php");
                     </div></div> \n");
             }
         }
+        printf("<ul>\n");
         if ($count <= 2) {
             echo '<p>Your Directory is Empty</p>';
         }
         ?>
-
-        <div class="fab-wrapper">
-            <input id="fabCheckbox" type="checkbox" class="fab-checkbox" />
-            <label class="fab" for="fabCheckbox">
-                <span class="fab-dots fab-dots-1"></span>
-                <span class="fab-dots fab-dots-2"></span>
-                <span class="fab-dots fab-dots-3"></span>
-            </label>
-            <div class="fab-wheel">
-                <a onclick="location.href='https://github.com/03prashantpk/'" class="fab-action fab-action-1">
-                    <i class="fa fa-question"></i>
-                </a>
-                <a onclick="location.href='#'" class="fab-action fab-action-2">
-                    <i class="fa fa-upload"></i>
-                </a>
-                <a onclick="location.href='https://enally.in'" class="fab-action fab-action-3">
-                    <i class="fa fa-globe"></i>
-                </a>
-                <a onclick="location.href='logout.php'" class="fab-action fab-action-4">
-                    <i class="fa fa-sign-out"></i>
-                </a>
-            </div>
-        </div>
-
-        <a class="float2" href="https://github.com/03prashantpk/" target="_blank">
-            <!--<i class="fa fa-coffee" style="color: #fff;" aria-hidden="true"></i>-->
-            <img src="https://rapidapi.com/blog/wp-content/uploads/2017/01/octocat.gif" style=" width:60px; height:60px; border-radius: 50%;" alt="">
-        </a>
-
-        <a class="float3" href="https://www.linkedin.com/in/03prashantpk/" target="_blank">
-            <!--<i class="fa fa-coffee" style="color: #fff;" aria-hidden="true"></i>-->
-            <img src="https://i.pinimg.com/originals/de/b4/6f/deb46f02a59e3b3a2aa58fac16290d63.gif" style=" width:60px; height:60px; border-radius: 50%;" alt="">
-        </a>
-
-
-        <a class="float" href="logout.php">
-            <!--<i class="fa fa-coffee" style="color: #fff;" aria-hidden="true"></i>-->
-            <img src="https://www.computerhope.com/issues/pictures/logout.jpg" style=" width:60px; height:60px; border-radius: 50%;" alt="">
-        </a>
-    </div>
-</body>
-<p style="color: #2c2c2c34;">Developed By Prashant Kumar
-    <br>If you want to work on this project <a href='https://www.linkedin.com/in/03prashantpk/'>Ping me.</a>
-</p>
-<script>
-    function copyText() {
-        /* Get the text field */
-        var copyText = document.getElementById("myInput");
-
-        /* Select the text field */
-        copyText.select();
-
-        /* Copy the text inside the text field */
-        document.execCommand("copy");
-
-        /* Alert the copied text */
-        alert("Copied the text: " + copyText.value);
-    }
-
-
-    function share() {
-        document.getElementById("share").innerHTML = "Link Copied";
-    }
-</script>
-
-<script>
-    window.onscroll = function() {
-        myFunction()
-    };
-
-    var header = document.getElementById("myHeader");
-    var sticky = header.offsetTop;
-
-    function myFunction() {
-        if (window.pageYOffset > sticky) {
-            header.classList.add("sticky");
-        } else {
-            header.classList.remove("sticky");
-        }
-    }
-</script>
-
-
-<!---- Delete script ----->
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.btn-success').click(function() {
-            var id = $(this).attr("id");
-            if (confirm("Are you sure you want to delete this Member?")) {
-                $.ajax({
-                    type: "POST",
-                    url: "delete.php",
-                    data: ({
-                        id: id
-                    }),
-                    cache: false,
-                    success: function(html) {}
-                });
-            } else {
-                return false;
-            }
-        });
-    });
-</script>
-
-
-
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            url: "View_ajax.php",
-            type: "POST",
-            cache: false,
-            success: function(dataResult) {
-                $('#table').html(dataResult);
-            }
-        });
-        $(document).on("click", ".delete", function() {
-            var $ele = $(this).parent().parent();
-                $.ajax({
-                    url: "delete_ajax.php",
-                    type: "POST",
-                    cache: false,
-                    data: {
-                        id: $(this).attr("data-id")
-                    },
-                    success: function(dataResult) {
-                        var dataResult = JSON.parse(dataResult);
-                        if (dataResult.statusCode == 200) {
-                            $ele.fadeOut().remove();
-                        }
-                    }
-                });
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            url: "View_ajax.php",
-            type: "POST",
-            cache: false,
-            success: function(dataResult) {
-                $('#table').html(dataResult);
-            }
-        });
-        $(document).on("click", ".count", function() {
-            var $ele = $(this).parent().parent();
-            $.ajax({
-                url: "count_ajax.php",
-                type: "POST",
-                cache: false,
-                data: {
-                    id: $(this).attr("data-id")
-                },
-                success: function(dataResult) {
-                    var dataResult = JSON.parse(dataResult);
-                    if (dataResult.statusCode == 200) {
-                        $ele.fadeOut().remove();
-                    }
-                    alert("Deleted");
-                }
-            });
-        });
-    });
-</script>
-
-
-</html>
+        <?php include("footer.php") ?>
