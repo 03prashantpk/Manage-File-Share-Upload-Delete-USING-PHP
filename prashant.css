@@ -494,6 +494,7 @@ h5 {
     display: flex;
     justify-content: center;
     text-align: left;
+    padding-bottom: 0px;
 }
 
 .top-container {
@@ -512,6 +513,7 @@ h5 {
 
 .content {
     padding: 16px;
+    padding-top: 0;
 }
 
 .sticky {
