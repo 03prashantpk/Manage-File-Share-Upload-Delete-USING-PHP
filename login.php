@@ -37,11 +37,12 @@ if (isset($_POST['Submit'])) {
 
 ?>
 <html>
+
 <head>
 	<!-- Title -------->
 	<title>Manage your Files </title>
 	<link rel="icon" href="assets/Fevicon.png" type="image/x-icon">
-	
+
 	<!-- Js and CSS Links ---->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -311,7 +312,7 @@ if (isset($_POST['Submit'])) {
 						<h5 class="card-title text-center">Authentication Required <br><span style="font-size:17px;"></span></h5>
 						<form class="form-signin" action="" method="POST">
 							<div class="form-label-group">
-								<input type="text" id="inputEmail" class="form-control" name="Username"  placeholder="Username" required autofocus>
+								<input type="text" id="inputEmail" class="form-control" name="Username" placeholder="Username" required autofocus>
 								<label for="inputEmail">Username</label>
 							</div>
 
@@ -403,7 +404,5 @@ if (isset($_POST['Submit'])) {
 
 			</footer>
 </body>
-
-
 
 </html>

@@ -10,6 +10,8 @@ file_put_contents($Page_visit_counter_file, $total_page_visit);
 
 // total file counts
 $filecounts =  "Images (" . $count_total_images . ") | Presentation (" . $count_total_ppt . ") | Documents (" . $count_total_docs . ") | Videos (" . $count_total_videos . ") | Pdf (" . $count_total_pdf . ") | Musics (" . $count_total_musics . ")" . "| Archives (" . $count_total_archive . ")";
+
+
 ?>
 
 <head>
@@ -43,6 +45,7 @@ $filecounts =  "Images (" . $count_total_images . ") | Presentation (" . $count_
 
     <div id="content">
         <!-- Code is on main.php---->
+        <!-- All Files are loading inside this div ----->
     </div>
 </body>
 
