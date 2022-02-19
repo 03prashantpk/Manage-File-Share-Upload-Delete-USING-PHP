@@ -1,3 +1,6 @@
+## UPGRADED VERSION IS AVAILABLE YouTube: [File Manager - Enally](https://www.youtube.com/watch?v=gXUOYqvKtm4)
+## UPGRADED VERSION IS AVAILABLE Live Demo: [File Manager - Enally - Classroom Bucket](https://enally.in/files-manager/)
+
 # Manage-File-Share-Upload-Delete-USING-PHP
 
 ### Login - Page
